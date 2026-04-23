@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainConsistManagementApp{
+public class TrainConsistManagementApp {
 
     static class Bogie {
         String name;
