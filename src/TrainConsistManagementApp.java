@@ -1,44 +1,50 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainConsistManagementApp {
+public class TrainConsistManagementApp{
 
-    static class Bogie {
-        String name;
-        int capacity;
+    static class GoodsBogie {
+        String type;
+        String cargo;
 
-        Bogie(String name, int capacity) {
-            this.name = name;
-            this.capacity = capacity;
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
         }
 
         @Override
         public String toString() {
-            return name + " -> " + capacity;
+            return type + " -> " + cargo;
         }
     }
 
     public static void main(String[] args) {
         System.out.println("=========================================================");
-        System.out.println(" UC10 - Count Total Seats in Train ");
+        System.out.println(" UC12 - Safety Compliance Check for Goods Bogies ");
         System.out.println("=========================================================\n");
 
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 70));
+        List<GoodsBogie> goodsBogies = new ArrayList<>();
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        goodsBogies.add(new GoodsBogie("Open", "Coal"));
+        goodsBogies.add(new GoodsBogie("Box", "Grain"));
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Coal"));
 
-        System.out.println("Bogies in Train:");
-        for (Bogie b : bogies) {
+        System.out.println("Goods Bogies in Train:");
+        for (GoodsBogie b : goodsBogies) {
             System.out.println(b);
         }
 
-        int totalCapacity = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b -> !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
 
-        System.out.println("\nTotal Seating Capacity of Train: " + totalCapacity);
-        System.out.println("\nUC10 aggregation completed...");
+        System.out.println("\nSafety Compliance Status: " + isSafe);
+
+        if (isSafe) {
+            System.out.println("Train formation is SAFE.");
+        } else {
+            System.out.println("Train formation is NOT SAFE.");
+        }
+
+        System.out.println("\nUC12 safety validation completed...");
     }
 }
